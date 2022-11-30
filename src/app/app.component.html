@@ -16,22 +16,17 @@
 <img src={{img}} alt= "image">
 -->
 
-<h1>****NgModel****</h1>
-<p>Nombre: {{ persona.name }}</p>
-<input type="text" [(ngModel)]="persona.name"/>
+<h1>*Hello World*</h1>
 
+<h2>{{'Página Prueba - '.repeat(2)}}</h2>
 
+<p>3 + 3 = {{ 3 + 3 }}</p>
+
+<h3>Hola, soy {{ name }} y tengo {{ age }} años.</h3>
+
+<img src={{img}} alt= "image">
 <hr/>
-<h1>***Eventos***</h1>
 
-<button [disabled]="btnDisable" >Enviar</button>
-<button (click)= "toggleButton()">Toggle Button</button>
-
-<p>Edad {{persona.age}}</p>
-<button (click)= "increaseAge()">Incrementar Edad</button>
-
-
-<hr/>
 <h1>**Propiedades**</h1>
 
 <button [disabled]="btnDisable" >Enviar</button>
@@ -50,13 +45,32 @@
 <hr/>
 
 
+<h1>***Eventos***</h1>
+
+<button [disabled]="btnDisable" >Enviar</button>
+<button (click)= "toggleButton()">Toggle Button</button>
+
+<p>Edad {{persona.age}}</p>
+<button (click)= "increaseAge()">Incrementar Edad</button>
 <hr/>
-<h1>*Hello World*</h1>
 
-<h2>{{'Página Prueba - '.repeat(2)}}</h2>
 
-<p>3 + 3 = {{ 3 + 3 }}</p>
+<h1>****NgModel****</h1>
+<p>Nombre: {{ persona.name }}</p>
+<input type="text" required #nameInput="ngModel" [(ngModel)]="persona.name"/>
+<p>Valid: {{ nameInput.valid }}</p>
 
-<h3>Hola, soy {{ name }} y tengo {{ age }}</h3>
+<p>Age: {{ persona.age }}</p>
+<input type="number" max="18" min="10" required #ageInput="ngModel" [(ngModel)]="persona.age"/>
+<p>Valid: {{ ageInput.valid }}</p>
+<hr/>
 
-<img src={{img}} alt= "image">
+
+<h1>*****ngIf*****</h1>
+<input type="text" required [(ngModel)]="persona.name"/>
+<p *ngIf="persona.name == 'Cristian'"> Soy Cristian</p>
+<p *ngIf="persona.name == 'Julian' $$ persona.age == 18; else myBlock"> Soy Julian</p>
+
+<ng-template #myBlock>
+  <p>Bloque de else</p>
+</ng-template>
