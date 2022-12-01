@@ -16,6 +16,15 @@
 <img src={{img}} alt= "image">
 -->
 
+<body >
+
+<style>
+  body {
+    background-color: rgb(15, 97, 70);
+  }
+</style>
+
+
 <h1>*Hello World*</h1>
 
 <h2>{{'Página Prueba - '.repeat(2)}}</h2>
@@ -68,9 +77,29 @@
 
 <h1>*****ngIf*****</h1>
 <input type="text" required [(ngModel)]="persona.name"/>
+<!-- validamos la igualdad entre el campo y una cadena, si es true, que ejecute el parrafo -->
+<!-- tambien validamos la edad, que sea igual a 18 -->
 <p *ngIf="persona.name == 'Cristian'"> Soy Cristian</p>
-<p *ngIf="persona.name == 'Julian' $$ persona.age == 18; else myBlock"> Soy Julian</p>
+<!-- para hacer el else tenemos que agregarle a el 'p' un '; else' al final de la validacion
+y el nombre del template a ejecutar tal cual se muestra a continuacion -->
+<p *ngIf="persona.name == 'Julian' $$ persona.age == 18; else MyBlock"> Soy Julian</p>
 
-<ng-template #myBlock>
+<!-- este seria el bloque que se ejecutaria en caso de no ser true -->
+<ng-template #MyBlock>
+  <!-- El nombre del bloque else puede ser cualquiera seguido por signo '#' -->
   <p>Bloque de else</p>
 </ng-template>
+<hr/>
+
+
+<h1>******ngFor******</h1>
+<input type="text" required #nameInput="ngModel" [(ngModel)]="newName"/>
+<button (click)="addName()">Add name</button>
+<ul>
+  <li *ngIf="names.length == 0">No hay nombres</li>
+  <li *ngFor="let name of names; index as i">
+    {{i}} {{ name }}
+    <button (click)="deleteName(i)">Delete</button>
+  </li>
+</ul>
+
