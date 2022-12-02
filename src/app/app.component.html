@@ -33,7 +33,7 @@
 
 <h3>Hola, soy {{ name }} y tengo {{ age }} años.</h3>
 
-<img src={{img}} alt= "image">
+<img width="200" src={{img}} alt= "image">
 <hr/>
 
 <h1>**Propiedades**</h1>
@@ -43,9 +43,8 @@
 <input type="text" [value]="persona.name"/>
 <progress max="100" [value]="persona.age"></progress>
 <img width="100" [src]="persona.avatar">
+
 <hr/>
-
-
 <div class="box" (scroll)="onScroll($event)">
   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officiis cupiditate molestiae, obcaecati in laborum laboriosam? Voluptas et officia asperiores atque facere quisquam cum hic beatae? Provident ut architecto illum?</p>
 </div>
@@ -82,7 +81,7 @@
 <p *ngIf="persona.name == 'Cristian'"> Soy Cristian</p>
 <!-- para hacer el else tenemos que agregarle a el 'p' un '; else' al final de la validacion
 y el nombre del template a ejecutar tal cual se muestra a continuacion -->
-<p *ngIf="persona.name == 'Julian' $$ persona.age == 18; else MyBlock"> Soy Julian</p>
+<p *ngIf="persona.name == 'Julian' &&persona.age == 18; else MyBlock"> Soy Julian</p>
 
 <!-- este seria el bloque que se ejecutaria en caso de no ser true -->
 <ng-template #MyBlock>
@@ -102,4 +101,133 @@ y el nombre del template a ejecutar tal cual se muestra a continuacion -->
     <button (click)="deleteName(i)">Delete</button>
   </li>
 </ul>
+<hr/>
 
+
+<h1>*******ngFor Objs*******</h1>
+<div>
+  <div *ngFor="let product of products">
+    <img width="250" [src]="product.image" alt="image">
+    <h2>{{ product.price }}</h2>
+    <p>{{ product.name }}</p>
+  </div>
+</div>
+<hr/>
+
+
+<h1>*******ngSwitch*******</h1>
+<input type="text" required [(ngModel)]="persona.name"/>
+<div [ngSwitch]="persona.name">
+  <p *ngSwitchCase="'Cristian'">
+    La persona es Cristian
+  </p>
+
+  <p *ngSwitchCase="'Julian'">
+    La persona es Julian
+  </p>
+
+  <p *ngSwitchCase="'Camilo'">
+    La persona es Camilo
+  </p>
+  <p *ngSwitchDefault>No existe en la lista.</p>
+</div>
+<!--
+<p *ngIf="persona.name === 'Cristian'">
+  La persona es Cristian
+</p>
+
+<p *ngIf="persona.name === 'Julian'">
+  La persona es Julian
+</p>
+
+<p *ngIf="persona.name === 'Camilo'">
+  La persona es Camilo
+</p>
+-->
+<hr/>
+
+
+<h1>********Estilos a la lista de productos********</h1>
+<div class="products--grid">
+  <div *ngFor="let product of products">
+    <img [src]="product.image" alt="image">
+    <h2>{{ product.price }}</h2>
+    <p>{{ product.name }}</p>
+  </div>
+</div>
+<hr/>
+
+
+<h1>*********Class and Style*********</h1>
+<input type="text" required #nameInput2="ngModel" [(ngModel)]="persona.name">
+<p class="message-error"[class.invalid]="nameInput2.invalid">
+  El campo es requerido
+</p>
+<label>Nombre</label>
+<input type="text" required #nameInput3="ngModel" [(ngModel)]="persona.name">
+<p [style.font-style]="nameInput3.invalid ? 'italic' : 'normal'">Texto Texto Texto</p>
+<div class="styles">
+  <div>
+    <input type="text" [(ngModel)]="widthImg">
+  </div>
+
+  <div>
+    <img [style.width.px]="widthImg" [src]="persona.avatar">
+  </div>
+</div>
+<hr/>
+
+
+<h1>**********ngClass & ngStyle**********</h1>
+<input type="text" required #nameInput4="ngModel" [(ngModel)]="persona.name">
+<hr class="line-error"
+  [ngClass]="{
+    'valid': nameInput4.valid,
+    'invalid': nameInput4.invalid
+  }"
+  />
+<p class="message-error" [class.invalid]="nameInput4.invalid">
+  El campo es requerido
+</p>
+
+<div class="styles">
+  <div>
+    <input type="number" [(ngModel)]="box.width"/>
+    <input type="number" [(ngModel)]="box.height"/>
+    <input type="color" [(ngModel)]="box.background"/>
+  </div>
+
+  <div>
+    <div [ngStyle]="{
+      'width.px': box.width,
+      'height.px': box.height,
+      'background-color': box.background,
+      'display': 'block'
+    }"></div>
+  </div>
+</div>
+<hr/>
+
+
+<h1>Formulario</h1>
+<form (ngSubmit)="onRegister()" #myForm="ngForm">
+  <div class="input-group">
+    <label for="name">Nombre</label>
+    <input type="text" name="name" required id="name" [(ngModel)]="register.name">
+    <p>Mensajes de error</p>
+  </div>
+
+  <div class="input-group">
+    <label for="email">Email</label>
+    <input type="email" name="email" required id="email" [(ngModel)]="register.email">
+    <p>Mensajes de error</p>
+  </div>
+
+  <div class="input-group">
+    <label for="password">Password</label>
+    <input type="password" name="password" required id="password" [(ngModel)]="register.password">
+    <p>Mensajes de error</p>
+  </div>
+
+  <button [disabled]="myForm.invalid" type="submit">Registrar</button>
+</form>
